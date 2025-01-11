@@ -21,7 +21,7 @@ using namespace std;
 ///////////////
 Model_3DS trafficlight1, tree1;
 Model_3DS chairs23;
-Model_3DS Conteiner1;
+Model_3DS Container1;
 Camera mycamera;
 int ints[5];
 string myArray[5];
@@ -52,8 +52,8 @@ GLvoid ReSizeGLScene(GLsizei width, GLsizei height)		// Resize And Initialize Th
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();									
 
-														// Calculate The Aspect Ratio Of The Window
-	gluPerspective(45.0f, (GLfloat)width / (GLfloat)height, 0.1f, 10000.0f);
+	gluPerspective(45.0, (GLfloat)width/(GLfloat)height, 2.0, 8000.0);//This fixes the whole see-through walls problem
+
 
 	glMatrixMode(GL_MODELVIEW);							
 	glLoadIdentity();									
@@ -92,6 +92,9 @@ float secen_Position[] = { 0, 0, 0, 0 };
 int sky;
 int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 {
+
+	
+
 	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
 	glClearColor(0.0f, 0.0f, 0.0f, 1.5f);				// Black Background
 	glClearDepth(1.0f);									// Depth Buffer Setup
@@ -111,6 +114,12 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	glMaterialfv(GL_FRONT, GL_SPECULAR, MatSpec);
 	glMaterialfv(GL_FRONT, GL_SHININESS, MatShn);
 	glEnable(GL_COLOR_MATERIAL);
+
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL); // Use less-equal depth function
+	glPolygonOffset(1.0, 1.0); // Offset polygons
+	glEnable(GL_POLYGON_OFFSET_FILL);
+	glClearDepth(1.0f); // Clear depth buffer
 	sky = LoadTexture((char*)"sky.bmp", 255);
 
 	///
@@ -278,9 +287,9 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	woman->Load((char*)"girl2.3DS");//
 	woman->Materials[0].tex.Load((char*)"girl2.bmp");
 
-	Conteiner1 = Model_3DS();
-	Conteiner1.Load((char*)"Conteiner shipping N290612.3ds");
-	Conteiner1.Materials[0].tex.Load((char*)"F1000W1.bmp");
+	Container1 = Model_3DS();
+	Container1.Load((char*)"Conteiner shipping N290612.3ds");
+	Container1.Materials[0].tex.Load((char*)"F1000W1.bmp");
 
 	tree1 = Model_3DS();
 	tree1.Load((char*)"tree11.3ds");
@@ -331,12 +340,12 @@ void SecondStage(int womanRotY, int chRotY, int posZ) {
 	ch1->pos.z = 275;
 	ch1->scale = 0.7;
 	ch1->Draw();
-	mal3->pos.x = 50;
-	mal3->pos.y = -225;
-	mal3->pos.z = 280;
+	mal3->pos.x = 0;
+	mal3->pos.y = -216.5;
+	mal3->pos.z = 291;
 	mal3->scale = 0.05;
 	mal3->Draw();//rotate this
-	mal2->pos.x = 40;
+	mal2->pos.x = 20;
 	mal2->pos.y = -225;
 	mal2->pos.z = 290;
 	mal2->scale = 0.5;
@@ -457,9 +466,9 @@ void model()
 {
 	//car
 	glPushMatrix();
-	car->pos.x = 0;
-	car->pos.y = -349.5;
-	car->pos.z = 200;
+	car->pos.x = -35;
+	car->pos.y = -347;
+	car->pos.z = 180;
 	car->scale = 0.6;
 	car->Draw();
 	glPopMatrix();
@@ -480,15 +489,15 @@ void model()
 	car->Draw();
 	glPopMatrix();
 	glPushMatrix();
-	glTranslated(300, 60, 0);
+	glTranslated(330, 60, 50);
 	car->Draw();
 	glPopMatrix();
 	glPushMatrix();
-	glTranslated(380, 60, 0);
+	glTranslated(410, 60, 50);
 	car->Draw();
 	glPopMatrix();
 	glPushMatrix();
-	glTranslated(450, 60, 0);
+	glTranslated(480, 60, 50);
 	car->Draw();
 	glPopMatrix();
 	//cashier
@@ -892,9 +901,9 @@ void mall()
 	glBegin(GL_QUADS);
 	glTexCoord2d(0, 0);
 	glVertex3d(100, -228, 0);//v2
-	glTexCoord2d(1, 0);
+	glTexCoord2d(-1, 0);
 	glVertex3d(100, -228, 300);//v6
-	glTexCoord2d(1, 1);
+	glTexCoord2d(-1, 1);
 	glVertex3d(100, -160, 300);//v7
 	glTexCoord2d(0, 1);
 	glVertex3d(100, -160, 0);//v3
@@ -985,22 +994,22 @@ void mall()
 	glBegin(GL_QUADS);
 	glTexCoord2d(0, 0);
 	glVertex3d(-200, -300, 300);//v 1
-	glTexCoord2d(1, 0);
+	glTexCoord2d(0, 0.35);
 	glVertex3d(-200, -230, 300);//v 2
-	glTexCoord2d(1, 1);
+	glTexCoord2d(0.2, 0.35);
 	glVertex3d(-125, -230, 300);//v 7
-	glTexCoord2d(0, 1);
+	glTexCoord2d(0.2, 0);
 	glVertex3d(-125, -300, 300);//v8 
 	//2
 	glBindTexture(GL_TEXTURE_2D, mallt);
 	glBegin(GL_QUADS);
 	glTexCoord2d(0, 0);
 	glVertex3d(-75, -300, 300);//v 1
-	glTexCoord2d(1, 0);
+	glTexCoord2d(0, 0.35);
 	glVertex3d(-75, -230, 300);//v 2
-	glTexCoord2d(1, 1);
+	glTexCoord2d(0.25, 0.35);
 	glVertex3d(75, -230, 300);//v 7
-	glTexCoord2d(0, 1);
+	glTexCoord2d(0.25, 0);
 	glVertex3d(75, -300, 300);//v8 
 	glEnd();
 	//3
@@ -1008,33 +1017,33 @@ void mall()
 	glBegin(GL_QUADS);
 	glTexCoord2d(0, 0);
 	glVertex3d(125, -300, 300);//v 1
-	glTexCoord2d(1, 0);
+	glTexCoord2d(0, 0.35);
 	glVertex3d(125, -230, 300);//v 2
-	glTexCoord2d(1, 1);
+	glTexCoord2d(0.175, 0.35);
 	glVertex3d(200, -230, 300);//v 7
-	glTexCoord2d(0, 1);
+	glTexCoord2d(0.175, 0);
 	glVertex3d(200, -300, 300);//v8 
 	//4
 	glBindTexture(GL_TEXTURE_2D, mallt);
 	glBegin(GL_QUADS);
 	glTexCoord2d(0, 0);
 	glVertex3d(-125, -245, 300);//v 1
-	glTexCoord2d(1, 0);
+	glTexCoord2d(0, 0.1);
 	glVertex3d(-125, -230, 300);//v 2
-	glTexCoord2d(1, 1);
+	glTexCoord2d(0.14, 0.1);
 	glVertex3d(-75, -230, 300);//v 7
-	glTexCoord2d(0, 1);
+	glTexCoord2d(0.14, 0);
 	glVertex3d(-75, -245, 300);//v8 
 	//5
 	glBindTexture(GL_TEXTURE_2D, mallt);
 	glBegin(GL_QUADS);
 	glTexCoord2d(0, 0);
 	glVertex3d(75, -245, 300);//v 1
-	glTexCoord2d(1, 0);
+	glTexCoord2d(0, 0.1);
 	glVertex3d(75, -230, 300);//v 2
-	glTexCoord2d(1, 1);
+	glTexCoord2d(0.14, 0.1);
 	glVertex3d(125, -230, 300);//v 7
-	glTexCoord2d(0, 1);
+	glTexCoord2d(0.14, 0);
 	glVertex3d(125, -245, 300);//v8 
 
 	//6
@@ -1098,9 +1107,9 @@ void mall()
 	glBindTexture(GL_TEXTURE_2D, mallt);
 	glBegin(GL_QUADS);
 	glTexCoord2d(0, 0);
-	glVertex3d(-200, -298, 0);//v5
+	glVertex3d(-200, -300, 0);//v5
 	glTexCoord2d(1, 0);
-	glVertex3d(200, -298, 0);//v6
+	glVertex3d(200, -300, 0);//v6
 	glTexCoord2d(1, 1);
 	glVertex3d(200, -230, 0);//v7
 	glTexCoord2d(0, 1);
@@ -1110,9 +1119,9 @@ void mall()
 	glBindTexture(GL_TEXTURE_2D, mallt);
 	glBegin(GL_QUADS);
 	glTexCoord2d(0, 0);
-	glVertex3d(-200, -298, 300);//v1
+	glVertex3d(-200, -300, 300);//v1
 	glTexCoord2d(1, 0);
-	glVertex3d(-200, -298, 0);//v5
+	glVertex3d(-200, -300, 0);//v5
 	glTexCoord2d(1, 1);
 	glVertex3d(-200, -230, 0);//v8
 	glTexCoord2d(0, 1);
@@ -1122,9 +1131,9 @@ void mall()
 	glBindTexture(GL_TEXTURE_2D, mallt);
 	glBegin(GL_QUADS);
 	glTexCoord2d(0, 0);
-	glVertex3d(200, -298, 300);//v2
+	glVertex3d(200, -300, 300);//v2
 	glTexCoord2d(1, 0);
-	glVertex3d(200, -298, 0);//v6
+	glVertex3d(200, -300, 0);//v6
 	glTexCoord2d(1, 1);
 	glVertex3d(200, -230, 0);//v7
 	glTexCoord2d(0, 1);
@@ -1134,26 +1143,26 @@ void mall()
 	glBindTexture(GL_TEXTURE_2D, floor1);
 	glBegin(GL_QUADS);
 	glTexCoord2d(0, 0);
-	glVertex3d(-200, -298, 300);//v1
+	glVertex3d(-200, -300, 300);//v1
 	glTexCoord2d(5, 0);
-	glVertex3d(-200, -298, 0);//v5
+	glVertex3d(-200, -300, 0);//v5
 	glTexCoord2d(5, 5);
-	glVertex3d(200, -298, 0);//v6
+	glVertex3d(200, -300, 0);//v6
 	glTexCoord2d(0, 5);
-	glVertex3d(200, -298, 300);//v2
+	glVertex3d(200, -300, 300);//v2
 	glEnd();
 	//1
 	//Front2
 	glBindTexture(GL_TEXTURE_2D, mallt);
 	glBegin(GL_QUADS);
-	glTexCoord2d(0, 0);
+	glTexCoord2f(0, 0);
 	glVertex3d(-200, -230, 300);//v1
-	glTexCoord2d(1, 0);
+	glTexCoord2f(1, 0);
 	glVertex3d(200, -230, 300);//v2
-	glTexCoord2d(1, 1);
-	glVertex3d(200, -160, 300);//v3
-	glTexCoord2d(0, 1);
-	glVertex3d(-200, -160, 300);//v4
+	glTexCoord2f(1, 1);
+	glVertex3d(200, -50, 300);//v3
+	glTexCoord2f(0, 1);
+	glVertex3d(-200, -50, 300);//v4
 	glEnd();
 	//Back2
 	glBindTexture(GL_TEXTURE_2D, mallt);
@@ -1308,19 +1317,19 @@ void mall()
 	glTexCoord2d(4,1);
 	glVertex3d(200, -160, 300);//v6
 	glTexCoord2d(0, 1);
-	glVertex3d(200, -160, 50);//v2
+	glVertex3d(200, -160, 50);//v2a
 	glEnd();
 	//mallname
 	glBindTexture(GL_TEXTURE_2D, logo);
 	glBegin(GL_QUADS);
 	glTexCoord2d(0, 0);
-	glVertex3d(-100, -125, 300);//v1
+	glVertex3d(-100, -160, 300);//v1
 	glTexCoord2d(0, 1);
 	glVertex3d(-100, -75, 300);//v2
 	glTexCoord2d(1, 1);
 	glVertex3d(100, -75, 300);//v7
 	glTexCoord2d(1, 0);
-	glVertex3d(100, -125, 300);//v8
+	glVertex3d(100, -160, 300);//v8
 	glEnd();
 }
 void externaldoor()
@@ -1524,9 +1533,9 @@ void Parking_un()
 	glTexCoord2d(2, 0);
 	glVertex3d(200, -360, 300);//v2
 	glTexCoord2d(2, 2);
-	glVertex3d(200, -302, 300);//v3
+	glVertex3d(200, -300, 300);//v3
 	glTexCoord2d(0, 2);
-	glVertex3d(-200, -302, 300);//v4
+	glVertex3d(-200, -300, 300);//v4
 	glEnd();
 	//Back0
 	glBindTexture(GL_TEXTURE_2D, parking);
@@ -1536,9 +1545,9 @@ void Parking_un()
 	glTexCoord2d(2, 0);
 	glVertex3d(200, -360, 0);//v6
 	glTexCoord2d(2, 2);
-	glVertex3d(200, -302, 0);//v7
+	glVertex3d(200, -300, 0);//v7
 	glTexCoord2d(0, 2);
-	glVertex3d(-200, -302, 0);//v8
+	glVertex3d(-200, -300, 0);//v8
 	glEnd();
 	//Left0
 	glBindTexture(GL_TEXTURE_2D, parking);
@@ -1548,9 +1557,9 @@ void Parking_un()
 	glTexCoord2d(2, 0);
 	glVertex3d(-200, -360, 0);//v5
 	glTexCoord2d(2, 2);
-	glVertex3d(-200, -302, 0);//v8
+	glVertex3d(-200, -300, 0);//v8
 	glTexCoord2d(0, 2);
-	glVertex3d(-200, -302, 300);//v4
+	glVertex3d(-200, -300, 300);//v4
 	glEnd();
 	//Right0
 	glBindTexture(GL_TEXTURE_2D, parking);
@@ -1558,13 +1567,13 @@ void Parking_un()
 	glTexCoord2d(0, 0);
 	glVertex3d(200, -360, 300);//v2
 	glTexCoord2d(2, 0);
-	glVertex3d(200, -302, 300);//v3
+	glVertex3d(200, -300, 300);//v3
 	glTexCoord2d(2, 2);
-	glVertex3d(200, -302, 100);//v7
+	glVertex3d(200, -300, 100);//v7
 	glTexCoord2d(0, 2);
 	glVertex3d(200, -360, 100);//v6
 	glEnd();
-	/*
+	
 	//top0
 	glBindTexture(GL_TEXTURE_2D, parking);
 	glBegin(GL_QUADS);
@@ -1577,7 +1586,7 @@ void Parking_un()
 	glTexCoord2d(0, 2);
 	glVertex3d(200, -302,300);//v3
 	glEnd();
-	*/
+	
 	//down0
 	glBindTexture(GL_TEXTURE_2D, parking);
 	glBegin(GL_QUADS);
@@ -1605,13 +1614,13 @@ void Parking_un()
 	glBindTexture(GL_TEXTURE_2D, parking);
 	glBegin(GL_QUADS);
 	glTexCoord2d(0, 0);
-	glVertex3d(300, -297, 0);
+	glVertex3d(300, -300, 0);
 	glTexCoord2d(2, 0);
-	glVertex3d(300, -297, 100);
+	glVertex3d(300, -300, 100);
 	glTexCoord2d(2, 2);
-	glVertex3d(400, -297, 100);
+	glVertex3d(400, -300, 100);
 	glTexCoord2d(0, 2);
-	glVertex3d(400, -297, 0);
+	glVertex3d(400, -300, 0);
 	glEnd();
 	///parking
 	//Front
@@ -3466,6 +3475,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	camera();
 	if (integer == 0) {
 	mycamera.SetRotateX(0);
+	mycamera.RotateY(90);
 	integer++;
 	}
 	//mouse ( mouseX, mouseY, isClicked, isRClicked);
@@ -3528,20 +3538,20 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	int boxnum =-18, boxnum1 = -18, boxnum2 = -18, boxnum3 = -18;
 	int m = 0;
 			glPushMatrix();
-			glTranslated(boxnum * 3, 1 * -100 + 2,-5 * 3);
+			glTranslatef(boxnum * 2.5, 1 * -100 + 2,-5 * 3);
 			glRotated(90, 0, 0, 1);
-			Conteiner1.scale = 0.002;
-			Conteiner1.Draw();
+			Container1.scale = 0.002;
+			Container1.Draw();
 			glPopMatrix();
 	while (m < ints[3]) {
 		glPushMatrix();
 
 		if (m < 3) {
 			glPushMatrix();
-			glTranslated(boxnum * 3, 1 * -100 + 2,-5 * 3);
+			glTranslatef(boxnum * 2.5, 1 * -100 + 2,-5 * 3);
 			glRotated(90, 0, 0, 1);
-			Conteiner1.scale = 0.002;
-			Conteiner1.Draw();
+			Container1.scale = 0.002;
+			Container1.Draw();
 			glPopMatrix();
 			boxnum = boxnum + 2;
 		}
@@ -3550,19 +3560,19 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 		if ((m >=3) && (m < 6)) {
 			glPushMatrix();
-			glTranslated(boxnum1 * 3, 1 * -90 + 2, -5 * 3);
+			glTranslatef(boxnum1 * 2.5, 1 * -90 + 2, -5 * 3);
 			glRotated(90, 0, 0, 1);
-			Conteiner1.scale = 0.002;
-			Conteiner1.Draw();
+			Container1.scale = 0.002;
+			Container1.Draw();
 			glPopMatrix();
 			boxnum1 = boxnum1 + 2;
 		}
 		if ((m >= 6) && (m < 9)) {
 			glPushMatrix();
-			glTranslated(boxnum2 * 3, 1 * -80 + 2, -5 * 3);
+			glTranslatef(boxnum2 * 2.5, 1 * -80 + 2, -5 * 3);
 			glRotated(90, 0, 0, 1);
-			Conteiner1.scale = 0.002;
-			Conteiner1.Draw();
+			Container1.scale = 0.002;
+			Container1.Draw();
 			glPopMatrix();
 			boxnum2 = boxnum2 + 2;
 		}
@@ -3717,14 +3727,77 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	glBegin(GL_QUADS);
 
 	glTexCoord2d(0, 0);
-	glVertex3d(-25 * 3, -100, -25 * 3);
+	glVertex3d(-16 * 3-2, -100, -25 * 3);
 	glTexCoord2d(5 * 3, 0);
 	glVertex3d(25 * 3, -100, -25 * 3);
 	glTexCoord2d(5 * 3, 5 * 3);
 	glVertex3d(25 * 3, -100, 25 * 3);
 	glTexCoord2d(0, 5 * 3);
-	glVertex3d(-25 * 3, -100, 25 * 3);
+	glVertex3d(-16 * 3-2, -100, 25 * 3);
 	glEnd();
+
+	glBegin(GL_QUADS);
+
+	glTexCoord2d(0, 0);
+	glVertex3f(-21 * 3  + 0.5, -100, -25 * 3);
+	glTexCoord2d(2 * 3, 0);
+	glVertex3f(-25 * 3, -100, -25 * 3);
+	glTexCoord2d(2 * 3, 2 * 3);
+	glVertex3f(-25 * 3, -100, 25 * 3);
+	glTexCoord2d(0, 2 * 3);
+	glVertex3f( -21 * 3 + 0.5, -100, 25 * 3);
+	
+	glEnd();
+
+	glBegin(GL_QUADS);
+
+	glTexCoord2d(0, 0);
+	glVertex3f(-16 * 3 - 2, -100, -25 * 3);
+	glTexCoord2d( 3, 0);
+	glVertex3f(-21 * 3 + 0.5, -100, -25 * 3);
+	glTexCoord2d( 3, 3);
+	glVertex3f(-21 * 3 + 0.5, -100, -9 * 3 + 2);
+	glTexCoord2d(0, 3);
+	glVertex3f(-16 * 3 - 2, -100, -9 * 3 + 2);
+
+	glEnd();
+
+	glBegin(GL_QUADS);
+
+	glTexCoord2d(0, 0);
+	glVertex3f(-16 * 3 - 2, -100, 25 * 3);
+	glTexCoord2d(2 * 3, 0);
+	glVertex3f(-21 * 3 + 0.5, -100, 25 * 3);
+	glTexCoord2d(2 * 3, 2 * 3);
+	glVertex3f(-21 * 3 + 0.5, -100, -5 * 3 + 2.5);
+	glTexCoord2d(0, 2 * 3);
+	glVertex3f(-16 * 3 - 2, -100, -5 * 3 + 2.5);
+
+	glEnd();
+
+	glBindTexture(GL_TEXTURE_2D, parking);
+	glBegin(GL_TRIANGLES);
+
+	glTexCoord2d(0, 0);
+	glVertex3f(-21 * 3 + 0.5, -100, -4 * 3 - 0.5);
+	glTexCoord2d(2 * 3, 0);
+	glVertex3f(-21 * 3 + 0.5, -120, -4 * 3 - 0.5);
+	glTexCoord2d(0, 2 * 3);
+	glVertex3f(-21 * 3 + 0.5, -100, -8 * 3 - 1);
+
+	glEnd();
+
+	glBegin(GL_TRIANGLES);
+
+	glTexCoord2d(0, 0);
+	glVertex3f(-17 * 3 + 1, -100, -4 * 3 - 0.5);
+	glTexCoord2d(2 * 3, 0);
+	glVertex3f(-17 * 3 + 1, -120, -4 * 3 - 0.5);
+	glTexCoord2d(0, 2 * 3);
+	glVertex3f(-17 * 3 + 1, -100, -8 * 3 - 1);
+
+	glEnd();
+
 	glPopMatrix();
 
 	glPushMatrix();
@@ -4226,17 +4299,17 @@ int WINAPI WinMain(HINSTANCE	hInstance,			// Instance
 				}
 			}
 
-			if (keys[VK_F1])						// Is F1 Being Pressed?
-			{
-				keys[VK_F1] = FALSE;					// If So Make Key FALSE
-				KillGLWindow();						// Kill Our Current Window
-				fullscreen = !fullscreen;				// Toggle Fullscreen / Windowed Mode
-				// Recreate Our OpenGL Window
-				if (!CreateGLWindow(t, 640, 480, 16, fullscreen))
-				{
-					return 0;						// Quit If Window Was Not Created
-				}
-			}
+			//if (keys[VK_F1])						// Is F1 Being Pressed?
+			//{
+			//	keys[VK_F1] = FALSE;					// If So Make Key FALSE
+			//	KillGLWindow();						// Kill Our Current Window
+			//	fullscreen = !fullscreen;				// Toggle Fullscreen / Windowed Mode
+			//	// Recreate Our OpenGL Window
+			//	if (!CreateGLWindow(t, 640, 480, 16, fullscreen))
+			//	{
+			//		return 0;						// Quit If Window Was Not Created
+			//	}
+			//}
 		}
 	}
 
