@@ -311,18 +311,18 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 void malican() {
 	glPushMatrix();
 	man->pos.x = 70;
-	man->pos.y = -230;
+	man->pos.y = -229.5;
 	man->pos.z = 220;
 	man->scale = 0.2;
 	man->Draw();
 	glPopMatrix();
-	mal1->pos.x = 70;
+	mal1->pos.x = 65;
 	mal1->pos.y = -200;
 	mal1->pos.z = 260;
 	mal1->scale = 0.005;
 	mal1->Draw();
 	ch1->pos.x = 80;
-	ch1->pos.y = -230;
+	ch1->pos.y = -229.5;
 	ch1->rot.y = 90;
 	ch1->pos.z = 220;
 	ch1->scale = 0.7;
@@ -337,17 +337,17 @@ void SecondStage(int womanRotY, int chRotY, int posZ) {
 	woman->Draw();
 	ch1->rot.y = chRotY;
 	ch1->pos.x = 70;
-	ch1->pos.y = -230;
+	ch1->pos.y = -229.5;
 	ch1->pos.z = 275;
 	ch1->scale = 0.7;
 	ch1->Draw();
 	mal3->pos.x = 0;
-	mal3->pos.y = -216.5;
+	mal3->pos.y = -216;
 	mal3->pos.z = 291;
 	mal3->scale = 0.05;
 	mal3->Draw();//rotate this
 	mal2->pos.x = 20;
-	mal2->pos.y = -225;
+	mal2->pos.y = -224.15;
 	mal2->pos.z = 290;
 	mal2->scale = 0.5;
 	mal2->Draw();
@@ -1423,7 +1423,7 @@ void door()
 	glPushMatrix();
 	glTranslated(100, -247, 300);
 	glRotated(x, 0, 1, 0);
-	x += 0.01;
+	x += 0.01;//This changes the speed at which the front doors rotate at
 	glBindTexture(GL_TEXTURE_2D, thedoor);
 	auxSolidCylinder(1, 52);
 	glBindTexture(GL_TEXTURE_2D, thedoor);
@@ -2784,25 +2784,25 @@ void cinema()
 	//back
 	glBindTexture(GL_TEXTURE_2D, tsellertabel);
 	glBegin(GL_QUADS);
-	glTexCoord2d(1, 0);
-	glVertex3f(-198, -160, 0);//v 5
-	glTexCoord2d(1, 1);
-	glVertex3f(-198, -50, 0);//v 6
-	glTexCoord2d(0, 1);
-	glVertex3f(25, -50, 0);//v 7
 	glTexCoord2d(0, 0);
+	glVertex3f(-198, -160, 0);//v 5
+	glTexCoord2d(0, 1);
+	glVertex3f(-198, -50, 0);//v 6
+	glTexCoord2d(1, 1);
+	glVertex3f(25, -50, 0);//v 7
+	glTexCoord2d(1, 0);
 	glVertex3f(25, -160, 0);//v 8
 	glEnd();
 	//left
 	glBindTexture(GL_TEXTURE_2D, tsellertabel);
 	glBegin(GL_QUADS);
-	glTexCoord2d(1, 0);
-	glVertex3f(-198, -160, 170);//v 1
-	glTexCoord2d(1, 1);
-	glVertex3f(-198, -50, 170);//v 2
-	glTexCoord2d(0, 1);
-	glVertex3f(-198, -50, 0);//v 6
 	glTexCoord2d(0, 0);
+	glVertex3f(-198, -160, 170);//v 1
+	glTexCoord2d(0, 1);
+	glVertex3f(-198, -50, 170);//v 2
+	glTexCoord2d(1, 1);
+	glVertex3f(-198, -50, 0);//v 6
+	glTexCoord2d(1, 0);
 	glVertex3f(-198, -160, 0);//v 5
 	glEnd();
 	//right
@@ -3471,68 +3471,68 @@ void drawBox(int boxnum, int y) {
 	glPushMatrix();
 	glBegin(GL_QUADS);
 	glTexCoord2d(0, 0);
+	glVertex3f(boxnum * 2.5 - 2.5, -99.5 + y, -13);
+	glTexCoord2d(0, 1);
+	glVertex3f(boxnum * 2.5 - 0.5, -99.5 + y, -13);
+	glTexCoord2d(1, 1);
+	glVertex3f(boxnum * 2.5 - 0.5, -99.5 + y, -13 - 4);
+	glTexCoord2d(1, 0);
+	glVertex3f(boxnum * 2.5 - 2.5, -99.5 + y, -13 - 4);
+	glEnd();
+
+	glBegin(GL_QUADS);
+	glTexCoord2d(0, 0);
+	glVertex3f(boxnum * 2.5 - 4.5, -89.5 + y, -13);
+	glTexCoord2d(0, 1);
+	glVertex3f(boxnum * 2.5 - 0.5, -89.5 + y, -13);
+	glTexCoord2d(1, 1);
+	glVertex3f(boxnum * 2.5 - 0.5, -89.5 + y, -13 - 4);
+	glTexCoord2d(1, 0);
+	glVertex3f(boxnum * 2.5 - 4.5, -89.5 + y, -13 - 4);
+	glEnd();
+
+	glBegin(GL_QUADS);
+	glTexCoord2d(0, 0);
+	glVertex3f(boxnum * 2.5 - 4.5, -99.5 + y, -13 - 4);
+	glTexCoord2d(0, 1);
+	glVertex3f(boxnum * 2.5 - 0.5, -99.5 + y, -13 - 4);
+	glTexCoord2d(1, 1);
+	glVertex3f(boxnum * 2.5 - 0.5, -89.5 + y, -13 - 4);
+	glTexCoord2d(1, 0);
+	glVertex3f(boxnum * 2.5 - 4.5, -89.5 + y, -13 - 4);
+	glEnd();
+
+	glBegin(GL_QUADS);
+	glTexCoord2d(0, 0);
 	glVertex3f(boxnum * 2.5 - 4.5, -99.5 + y, -13);
 	glTexCoord2d(0, 1);
-	glVertex3f(boxnum * 2.4 - 3.5, -99.5 + y, -13);
+	glVertex3f(boxnum * 2.5 - 0.5, -99.5 + y, -13);
 	glTexCoord2d(1, 1);
-	glVertex3f(boxnum * 2.4 - 3.5, -99.5 + y, -13 - 3);
+	glVertex3f(boxnum * 2.5 - 0.5, -89.5 + y, -13);
 	glTexCoord2d(1, 0);
-	glVertex3f(boxnum * 2.5 - 4.5, -99.5 + y, -13 - 3);
+	glVertex3f(boxnum * 2.5 - 4.5, -89.5 + y, -13);
 	glEnd();
 
 	glBegin(GL_QUADS);
 	glTexCoord2d(0, 0);
-	glVertex3f(boxnum * 2.5 - 4.5, -92 + y, -13);
-	glTexCoord2d(0, 1);
-	glVertex3f(boxnum * 2.4 - 3.5, -92 + y, -13);
-	glTexCoord2d(1, 1);
-	glVertex3f(boxnum * 2.4 - 3.5, -92 + y, -13 - 3);
-	glTexCoord2d(1, 0);
-	glVertex3f(boxnum * 2.5 - 4.5, -92 + y, -13 - 3);
-	glEnd();
-
-	glBegin(GL_QUADS);
-	glTexCoord2d(0, 0);
-	glVertex3f(boxnum * 2.5 - 4.5, -99.5 + y, -13 - 3);
-	glTexCoord2d(0, 1);
-	glVertex3f(boxnum * 2.4 - 3.5, -99.5 + y, -13 - 3);
-	glTexCoord2d(1, 1);
-	glVertex3f(boxnum * 2.4 - 3.5, -92 + y, -13 - 3);
-	glTexCoord2d(1, 0);
-	glVertex3f(boxnum * 2.5 - 4.5, -92 + y, -13 - 3);
-	glEnd();
-
-	glBegin(GL_QUADS);
-	glTexCoord2d(0, 0);
-	glVertex3f(boxnum * 2.5 - 4.5, -99.5 + y, -13);
-	glTexCoord2d(0, 1);
-	glVertex3f(boxnum * 2.4 - 3.5, -99.5 + y, -13);
-	glTexCoord2d(1, 1);
-	glVertex3f(boxnum * 2.4 - 3.5, -92 + y, -13);
-	glTexCoord2d(1, 0);
-	glVertex3f(boxnum * 2.5 - 4.5, -92 + y, -13);
-	glEnd();
-
-	glBegin(GL_QUADS);
-	glTexCoord2d(0, 0);
-	glVertex3f(boxnum * 2.5 - 4.5, -99.5 + y, -13 - 3);
+	glVertex3f(boxnum * 2.5 - 4.5, -99.5 + y, -13 - 4);
 	glTexCoord2d(0, 1);
 	glVertex3f(boxnum * 2.5 - 4.5, -99.5 + y, -13);
 	glTexCoord2d(1, 1);
-	glVertex3f(boxnum * 2.5 - 4.5, -92 + y, -13);
+	glVertex3f(boxnum * 2.5 - 4.5, -89.5 + y, -13);
 	glTexCoord2d(1, 0);
-	glVertex3f(boxnum * 2.5 - 4.5, -92 + y, -13 - 3);
+	glVertex3f(boxnum * 2.5 - 4.5, -89.5 + y, -13 - 4);
 	glEnd();
 
 	glBegin(GL_QUADS);
 	glTexCoord2d(0, 0);
-	glVertex3f(boxnum * 2.4 - 3.5, -99.5 + y, -13 - 3);
+	glVertex3f(boxnum * 2.5 - 0.5, -99.5 + y, -13 - 4);
 	glTexCoord2d(0, 1);
-	glVertex3f(boxnum * 2.4 - 3.5, -99.5 + y, -13);
+	glVertex3f(boxnum * 2.5 - 0.5, -99.5 + y, -13);
 	glTexCoord2d(1, 1);
-	glVertex3f(boxnum * 2.4 - 3.5, -92 + y, -13);
+	glVertex3f(boxnum * 2.5 - 0.5, -89.5 + y, -13);
 	glTexCoord2d(1, 0);
-	glVertex3f(boxnum * 2.4 - 3.5, -92 + y, -13 - 3);
+	glVertex3f(boxnum * 2.5 - 0.5, -89.5 + y, -13 - 4);
 	glEnd();
 	glPopMatrix();
 }
@@ -3579,9 +3579,9 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	int j = 0;
 	while (j < ints[2]) {
 		glPushMatrix();
-		glScaled(1, 2.5, 1);
-		glTranslated(0, 60, 0);
 		if (j < 3) {
+			glScaled(1, 2.5, 1);
+			glTranslated(0, 60, 0);
 			car->pos.x = -16;
 			car->pos.y = -98.5;
 			car->pos.z = carnum;
@@ -3592,16 +3592,17 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 
 
-		if ((j >= 4) && (j < 7)) {
-			glTranslated(-23, 0, 0);
+		else if ((j >= 3) && (j < 7)) {
+			glScaled(1, 2.5, 1);
+			glTranslatef(-23.5, 60, 130);
 			glRotated(180, 0, 1, 0);
+			car->pos.x = -16;
 			car->pos.y = -98.5;
-			car->pos.z = carnum1;
+			car->pos.z = carnum;
 			car->scale = 0.06;
 			car->Draw();
-			carnum1 += 50;
+			carnum = carnum + 50;
 		}
-
 		glPopMatrix();
 
 		j++;
@@ -3614,30 +3615,25 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 	int boxnum = -18, boxnum1 = -18, boxnum2 = -18, boxnum3 = -18;
 	int m = 0;
-	/*glPushMatrix();
-	glTranslatef(boxnum * 2.5, 1 * -100 + 3, -5 * 3);
-	glRotated(90, 0, 0, 1);
-	Container1.scale = 0.002;
-	Container1.Draw();
-	glPopMatrix();*/
+
 	while (m < ints[3]) {
 		glPushMatrix();
 
 		glBindTexture(GL_TEXTURE_2D, box);
 		if (m < 3) {
 			drawBox(boxnum, 0);
-			boxnum = boxnum + 2;
+			boxnum = boxnum + 3;
 		}
 
 
 
 		if ((m >= 3) && (m < 6)) {
-			drawBox(boxnum1, 7.5);
-			boxnum1 += 2;
+			drawBox(boxnum1, 10);
+			boxnum1 += 3;
 		}
 		if ((m >= 6) && (m < 9)) {
-			drawBox(boxnum2, 14.5);
-			boxnum2 += 2;
+			drawBox(boxnum2, 20);
+			boxnum2 += 3;
 		}
 
 		glPopMatrix();
@@ -4324,7 +4320,7 @@ int WINAPI WinMain(HINSTANCE	hInstance,			// Instance
 	}
 
 	// Create Our OpenGL Window
-	char t[] = "egewspg";
+	char t[] = "Mall Program";
 	if (!CreateGLWindow(t, 640, 480, 16, fullscreen))
 	{
 		return 0;									// Quit If Window Was Not Created
@@ -4381,73 +4377,131 @@ int WINAPI WinMain(HINSTANCE	hInstance,			// Instance
 	return (msg.wParam);
 }
 
-
-float cameraX = 2.0f, cameraY = 1.0f, cameraZ = 3.0f; // Camera position
-float cameraSpeed = 0.1f;
-float cameraAngleX = 0.0f, cameraAngleY = -45.0f;     // Angles for camera rotation
-float targetX = 0.0, targetY = 0.0, targetZ = 0.0; // النقطة المستهدفة
-int img;
-int lastMouseX, lastMouseY;
-
 bool startswith(const std::string& str, const std::string& cmp) {
 	return str.compare(0, cmp.length(), cmp) == 0;
 }
-
 int main(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
-	system("guioengl.exe");
+	string input;
+	int environment;
+	int trees;
+	int cars;
+	int boxes;
+	int buildings;
 
+	for (int i = 0; i <= 4; i++) {
+		if (i == 0) {
+			while (true) {
+				cout << "Choose the environment type (0:sandy, 1:rocky, 2:grassy)\n";
+				cin >> input;
+				try {
+					environment = stoi(input);
+				}
+				catch (exception e) {
+					cout << "\nEnter a number next time.\n\n";
+					continue;
+				}
+				if (environment>=0 && environment<=2) {
+					if(environment==0)
+					myArray[0] = "sandy";
+					else if (environment == 1)
+						myArray[0] = "rocky";
+					else if (environment == 2)
+						myArray[0] = "grassy";
+					break;
+				}
+				cout << "\nYou have to choose either 0, 1 or 2\n\n";
+			}
+		}
+		else if (i == 1) {
+			while (true) {
+				cout << "\nChoose the number of trees you want (Max 18)\n";
+				cin >> input;
+				try {
+					trees = stoi(input);
+				}
+				catch (exception e) {
+					cout << "\nEnter a number next time.\n\n";
+					continue;
+				}
+				if (trees >= 0 && trees < 19) {
+					ints[1] = trees;
+					break;
+				}
+				cout << "\nYou have to choose a number between 0 and 18.\n\n";
+			}
+		}
+		else if (i == 2) {
+			while (true) {
+				cout << "\nChoose the number of cars you want (Max 6)\n";
+				cin >> input;
+				try {
+					cars = stoi(input);
+				}
+				catch (exception e) {
+					cout << "\nEnter a number next time.\n\n";
+					continue;
+				}
+				if (cars >= 0 && cars < 7) {
+					ints[2] = cars;
+					break;
+				}
+				cout << "\nYou have to choose a number between 0 and 6.\n\n";
+			}
+		}
+		else if (i == 3) {
+			while (true) {
+				cout << "\nChoose the number of boxes you want (Max 9)\n";
+				cin >> input;
+				try {
+					boxes = stoi(input);
+				}
+				catch (exception e) {
+					cout << "\nEnter a number next time.\n\n";
+					continue;
+				}
+				if (boxes >= 0 && boxes < 10) {
+					ints[3] = boxes;
+					break;
+				}
+				cout << "\nYou have to choose a number between 0 and 9.\n\n";
+			}
+		}
+		else if (i == 4) {
+			while (true) {
+				cout << "\nChoose the number of buildings you want (Max 4)\n";
+				cin >> input;
 
+				try {
+					buildings = stoi(input);
+				}
+				catch (exception e) {
+					cout << "\nEnter a number next time.\n\n";
+					continue;
+				}
 
-	ifstream file("data for OpenGL.txt");
-	if (file.is_open())
-	{
-		for (int i = 0; i < 5; ++i)
-		{
-			file >> myArray[i];
+				if (buildings >= 0 && buildings < 5) {
+					ints[4] = buildings;
+					break;
+				}
+				cout << "\nYou have to choose a number between 0 and 4.\n\n";
+			}
+			cout << std::endl;
 		}
 	}
-	for (int i = 1; i < 5; ++i)
-		ints[i] = atoi(myArray[i].c_str());
-	if (stoi(myArray[1]) > 18) {
-		cout << "You entered " + myArray[1] + " trees while the max is 18";
-		exit(0);
-	}
-	else if (stoi(myArray[1]) < 0 || startswith(myArray[1], "0-")) {
-		cout << "You entered " + myArray[1] + ". You can't enter negative numbers";
-		exit(0);
-	}
-	if (stoi(myArray[2]) > 6) {
-		cout << "You entered " + myArray[1] + " cars while the max is 6";
-		exit(0);
-	}
-	else if (stoi(myArray[2]) < 0 || startswith(myArray[2], "0-")) {
-		cout << "You entered " + myArray[2] + ". You can't enter negative numbers";
-		exit(0);
-	}
-	if (stoi(myArray[3]) > 9) {
-		cout << "You entered " + myArray[3] + " boxes while the max is 9";
-		exit(0);
-	}
-	else if (stoi(myArray[3]) < 0 || startswith(myArray[3], "0-")) {
-		cout << "You entered " + myArray[3] + ". You can't enter negative numbers";
-		exit(0);
-	}
-	if (stoi(myArray[4]) > 4) {
-		cout << "You entered " + myArray[4] + " virtual buildings while the max is 4";
-		exit(0);
-	}
-	else if (stoi(myArray[4]) < 0 || startswith(myArray[4], "0-")) {
-		cout << "You entered " + myArray[4] + ". You can't enter negative numbers";
-		exit(0);
-	}
 
-	cout << "environment type : " << myArray[0] << "\n";// choose of the  environment
-	cout << "trees number : " << ints[1] << " / 18 " << "\n";
-	cout << "Cars number : " << ints[2] << " / 6 " << "\n";
-	cout << "Boxes number : " << ints[3] << " /9 " << "\n";
-	cout << "Virtual Buildings number : " << ints[4] << " / 4" << "\n";
+	//for (int i = 1; i < 5; ++i) {
+	//	//ints[i] = atoi(myArray[i].c_str());
+	//	cout << "AHJSIFNIASNFF\t" +ints[i];
+	//	cout << endl;
+	//}
+	
+	cout << "Environment Type: " << myArray[0] << "\n";// choose of the  environment
+	cout << "Number of Trees: " << ints[1] << "/18 " << "\n";
+	cout << "Number of Cars: " << ints[2] << "/6 " << "\n";
+	cout << "Number of Boxes: " << ints[3] << "/9 " << "\n";
+	cout << "Number of Virtual Buildings: " << ints[4] << "/4" << "\n";
 
 
 	return WinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);;
